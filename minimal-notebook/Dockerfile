@@ -10,23 +10,23 @@ USER root
 # Install all OS dependencies for fully functional notebook server
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     build-essential \
-    emacs \
+    # emacs \
     git \
-    inkscape \
-    jed \
-    libsm6 \
-    libxext-dev \
-    libxrender1 \
-    lmodern \
-    netcat \
-    pandoc \
-    python-dev \
-    texlive-fonts-extra \
-    texlive-fonts-recommended \
-    texlive-generic-recommended \
-    texlive-latex-base \
-    texlive-latex-extra \
-    texlive-xetex \
+    # inkscape \
+    # jed \
+    # libsm6 \
+    # libxext-dev \
+    # libxrender1 \
+    # lmodern \
+    # netcat \
+    # pandoc \
+    # python-dev \
+    # texlive-fonts-extra \
+    # texlive-fonts-recommended \
+    # texlive-generic-recommended \
+    # texlive-latex-base \
+    # texlive-latex-extra \
+    # texlive-xetex \
     tzdata \
     unzip \
     nano \
