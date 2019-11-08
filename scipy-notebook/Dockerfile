@@ -21,7 +21,7 @@ RUN conda install --quiet --yes \
     'bokeh=1.3*' \
     'cloudpickle=1.2*' \
     'cython=0.29*' \
-    'dask=2.2.*' \
+    'dask=2.0' \
     'dill=0.3*' \
     'h5py=2.9*' \
     'hdf5=1.10*' \
@@ -29,9 +29,10 @@ RUN conda install --quiet --yes \
     'matplotlib-base=3.1.*' \
     'numba=0.45*' \
     'numexpr=2.6*' \
+    'numpy=1.16.4' \
     'pandas=0.25*' \
     'patsy=0.5*' \
-    'protobuf=3.9.*' \
+    'protobuf=3.6.1' \
     'scikit-image=0.15*' \
     'scikit-learn=0.21*' \
     'scipy=1.3*' \
@@ -48,7 +49,7 @@ RUN conda install --quiet --yes \
     # Also activate ipywidgets extension for JupyterLab
     # Check this URL for most recent compatibilities
     # https://github.com/jupyter-widgets/ipywidgets/tree/master/packages/jupyterlab-manager
-    jupyter labextension install @jupyter-widgets/jupyterlab-manager@^1.0.1 --no-build && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager@^1.1.0 --no-build && \
     jupyter labextension install jupyterlab_bokeh@1.0.0 --no-build && \
     jupyter lab build --dev-build=False && \
     npm cache clean --force && \
