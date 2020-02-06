@@ -21,7 +21,7 @@ RUN conda install --quiet --yes \
     'bokeh=1.4.*' \
     'cloudpickle=1.2.*' \
     'cython=0.29.*' \
-    'dask=2.9.*' \
+    'dask=2.0' \
     'dill=0.3.*' \
     'h5py=2.10.*' \
     'hdf5=1.10.*' \
@@ -31,7 +31,7 @@ RUN conda install --quiet --yes \
     'numexpr=2.7.*' \
     'pandas=0.25.*' \
     'patsy=0.5.*' \
-    'protobuf=3.11.*' \
+    'protobuf=3.6.1' \
     'scikit-image=0.16.*' \
     'scikit-learn=0.22.*' \
     'scipy=1.4.*' \
