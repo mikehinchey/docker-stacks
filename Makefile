@@ -24,6 +24,9 @@ endif
 
 ALL_IMAGES:=$(ALL_STACKS)
 
+# Linter
+HADOLINT="${HOME}/hadolint"
+
 help:
 # http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 	@echo "jupyter/docker-stacks"
@@ -45,6 +48,8 @@ arch_patch/%: ## apply hardware architecture specific patches to the Dockerfile
 build/%: DARGS?=
 build/%: ## build the latest image for a stack
 	docker build $(DARGS) --rm --force-rm -t $(OWNER)/$(notdir $@):latest ./$(notdir $@)
+	@echo -n "Built image size: "
+	@docker images $(OWNER)/$(notdir $@):latest --format "{{.Size}}"
 
 build-all: $(foreach I,$(ALL_IMAGES),arch_patch/$(I) build/$(I) ) ## build all stacks
 build-test-all: $(foreach I,$(ALL_IMAGES),arch_patch/$(I) build/$(I) test/$(I) ) ## build and test all stacks
@@ -70,6 +75,23 @@ dev/%: ## run a foreground container for a stack
 
 dev-env: ## install libraries required to build docs and run tests
 	pip install -r requirements-dev.txt
+
+lint/%: ARGS?=
+lint/%: ## lint the dockerfile(s) for a stack
+	@echo "Linting Dockerfiles in $(notdir $@)..."
+	@git ls-files --exclude='Dockerfile*' --ignored $(notdir $@) | grep -v ppc64 | xargs -L 1 $(HADOLINT) $(ARGS)
+	@echo "Linting done!"
+
+lint-all: $(foreach I,$(ALL_IMAGES),lint/$(I) ) ## lint all stacks
+
+lint-build-test-all: $(foreach I,$(ALL_IMAGES),lint/$(I) arch_patch/$(I) build/$(I) test/$(I) ) ## lint, build and test all stacks
+
+lint-install: ## install hadolint
+	@echo "Installing hadolint at $(HADOLINT) ..."
+	@curl -sL -o $(HADOLINT) "https://github.com/hadolint/hadolint/releases/download/v1.17.6/hadolint-$(shell uname -s)-$(shell uname -m)"
+	@chmod 700 $(HADOLINT)
+	@echo "Installation done!"
+	@$(HADOLINT) --version	
 
 img-clean: img-rm-dang img-rm ## clean dangling and jupyter images
 
